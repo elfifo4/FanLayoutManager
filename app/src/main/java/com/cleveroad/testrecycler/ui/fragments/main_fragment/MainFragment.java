@@ -3,10 +3,12 @@ package com.cleveroad.testrecycler.ui.fragments.main_fragment;
 import android.animation.Animator;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
 import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +47,7 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvCards);
 
@@ -113,7 +115,6 @@ public class MainFragment extends Fragment {
 
     }
 
-    @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onClick(View view, int pos) {
         FullInfoTabFragment fragment = FullInfoTabFragment.newInstance(mAdapter.getModelByPos(pos));
 

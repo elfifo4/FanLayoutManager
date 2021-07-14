@@ -2,9 +2,9 @@ package com.cleveroad.testrecycler.ui.fragments.main_fragment;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,16 +67,11 @@ class SportCardsAdapter extends RecyclerView.Adapter<SportCardsAdapter.SportCard
         ((CardView) holder.itemView).setCardBackgroundColor(ContextCompat.getColor(mContext, item.getBackgroundColorResId()));
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            holder.ivSportPreview.setTransitionName("shared" + String.valueOf(position));
-        }
+        holder.ivSportPreview.setTransitionName("shared" + String.valueOf(position));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClicked(holder.getAdapterPosition(), holder.ivSportPreview);
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClicked(holder.getAdapterPosition(), holder.ivSportPreview);
             }
         });
     }
@@ -103,7 +98,7 @@ class SportCardsAdapter extends RecyclerView.Adapter<SportCardsAdapter.SportCard
         void onItemClicked(int pos, View view);
     }
 
-    class SportCardViewHolder extends RecyclerView.ViewHolder {
+    static class SportCardViewHolder extends RecyclerView.ViewHolder {
 
         final TextView tvSportTitle;
         final TextView tvSportSubtitle;

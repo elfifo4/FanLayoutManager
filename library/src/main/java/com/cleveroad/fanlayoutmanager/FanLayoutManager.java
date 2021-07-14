@@ -6,12 +6,13 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collection;
 import java.util.Random;
@@ -266,7 +267,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
 
         // left offset for center view
         int centerViewOffset = mCenterView == null ? (int) (getWidth() / 2F - mSettings.getViewWidthPx() / 2F) :
-                getDecoratedLeft(mCenterView);
+            getDecoratedLeft(mCenterView);
 
         // main fill logic
         if (mScrollToPosition != RecyclerView.NO_POSITION) {
@@ -303,9 +304,9 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
         calculateItemDecorationsForChild(child, decorRect);
         RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) child.getLayoutParams();
         widthSpec = updateSpecWithExtra(widthSpec, lp.leftMargin + decorRect.left,
-                lp.rightMargin + decorRect.right);
+            lp.rightMargin + decorRect.right);
         heightSpec = updateSpecWithExtra(heightSpec, lp.topMargin + decorRect.top,
-                lp.bottomMargin + decorRect.bottom);
+            lp.bottomMargin + decorRect.bottom);
         child.measure(widthSpec, heightSpec);
 
     }
@@ -317,7 +318,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
         final int mode = View.MeasureSpec.getMode(spec);
         if (mode == View.MeasureSpec.AT_MOST || mode == View.MeasureSpec.EXACTLY) {
             return View.MeasureSpec.makeMeasureSpec(
-                    View.MeasureSpec.getSize(spec) - startInset - endInset, mode);
+                View.MeasureSpec.getSize(spec) - startInset - endInset, mode);
         }
         return spec;
     }
@@ -342,7 +343,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
         }
 
         if (mSelectedItemPosition != RecyclerView.NO_POSITION && !mIsSelectAnimationInProcess && !mIsDeselectAnimationInProcess &&
-                !mIsWaitingToDeselectAnimation && !mIsWaitingToSelectAnimation) {
+            !mIsWaitingToDeselectAnimation && !mIsWaitingToSelectAnimation) {
             // if item selected and any animation isn't in progress
             deselectItem(mSelectedItemPosition);
         }
@@ -362,7 +363,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
         long scaledHeight = (long) (mSettings.getViewHeightPx() * mAnimationHelper.getViewScaleFactor());
         long scaledWidth = (long) (mSettings.getViewWidthPx() * mAnimationHelper.getViewScaleFactor());
         int height = heightMode == View.MeasureSpec.EXACTLY ? View.MeasureSpec.getSize(heightSpec) :
-                (int) (Math.sqrt(scaledHeight * scaledHeight + scaledWidth * scaledWidth));
+            (int) (Math.sqrt(scaledHeight * scaledHeight + scaledWidth * scaledWidth));
 
         //noinspection Range
         heightSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
@@ -399,7 +400,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
         }
         // area with filling views. need to find borders
         int viewSpan = getDecoratedRight(rightView) > getWidth() ? getDecoratedRight(rightView) : getWidth() -
-                (getDecoratedLeft(leftView) < 0 ? getDecoratedLeft(leftView) : 0);
+            (getDecoratedLeft(leftView) < 0 ? getDecoratedLeft(leftView) : 0);
 
         // check left and right borders
         if (viewSpan < getWidth()) {
@@ -495,7 +496,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
             }
 
             view.setRotation((float) (rotation + (mSelectedItemPosition == viewPosition && mIsSelectedItemStraightened ?
-                    0 : baseViewRotation)));
+                0 : baseViewRotation)));
         }
     }
 
@@ -541,7 +542,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
 
         // if have to restore state with selected item
         boolean hasPendingStateSelectedItem = mPendingSavedState != null && mPendingSavedState.isSelected &&
-                mPendingSavedState.mCenterItemPosition != RecyclerView.NO_POSITION;
+            mPendingSavedState.mCenterItemPosition != RecyclerView.NO_POSITION;
 
         // offset for left and right views in case we have to restore pending state with selected view.
         // this is delta distance between overlap cards state and collapse (selected card) card state
@@ -601,7 +602,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
                 measureChildWithDecorationsAndMargin(view, widthSpec, heightSpec);
                 // set offsets, with and height in the recyclerView
                 layoutDecorated(view, leftViewOffset, baseTopMargin,
-                        leftViewOffset + mSettings.getViewWidthPx(), baseTopMargin + mSettings.getViewHeightPx());
+                    leftViewOffset + mSettings.getViewWidthPx(), baseTopMargin + mSettings.getViewHeightPx());
             } else {
                 attachView(view, leftViewPosition);
                 mViewCache.remove(leftViewPosition);
@@ -648,14 +649,14 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
      */
     public void switchItem(@Nullable RecyclerView recyclerView, final int selectedViewPosition) {
         if (mIsDeselectAnimationInProcess || mIsSelectAnimationInProcess || mIsViewCollapsing ||
-                mIsWaitingToDeselectAnimation || mIsWaitingToSelectAnimation || mIsSelectedItemStraightenedInProcess) {
+            mIsWaitingToDeselectAnimation || mIsWaitingToSelectAnimation || mIsSelectedItemStraightenedInProcess) {
             // block event if any animation in progress
             return;
         }
 
         if (recyclerView != null) {
             if (mSelectedItemPosition != RecyclerView.NO_POSITION &&
-                    mSelectedItemPosition != selectedViewPosition) {
+                mSelectedItemPosition != selectedViewPosition) {
                 // if item selected
                 deselectItem(recyclerView, mSelectedItemPosition, selectedViewPosition, 0);
                 return;
@@ -699,47 +700,47 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
         mIsWaitingToSelectAnimation = true;
 
         mAnimationHelper.openItem(viewToSelect, delay * 3 /*need to finish scroll before start open*/,
-                new SimpleAnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animator) {
-                        super.onAnimationStart(animator);
-                        // change state of select animation progress
-                        mIsSelectAnimationInProcess = true;
-                        mIsWaitingToSelectAnimation = false;
-                        // shift distance between center view and left, right views.
-                        final int delta = mSettings.getViewWidthPx() / 2;
-                        // generate data for animation helper. (calculate final positions for all views)
-                        final Collection<ViewAnimationInfo> infoViews = ViewAnimationInfoGenerator.generate(delta,
-                                true,
-                                FanLayoutManager.this,
-                                mSelectedItemPosition,
-                                false);
+            new SimpleAnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+                    super.onAnimationStart(animator);
+                    // change state of select animation progress
+                    mIsSelectAnimationInProcess = true;
+                    mIsWaitingToSelectAnimation = false;
+                    // shift distance between center view and left, right views.
+                    final int delta = mSettings.getViewWidthPx() / 2;
+                    // generate data for animation helper. (calculate final positions for all views)
+                    final Collection<ViewAnimationInfo> infoViews = ViewAnimationInfoGenerator.generate(delta,
+                        true,
+                        FanLayoutManager.this,
+                        mSelectedItemPosition,
+                        false);
 
-                        // animate shifting let and right views
-                        mAnimationHelper.shiftSideViews(
-                                infoViews,
-                                0,
-                                FanLayoutManager.this,
-                                null,
-                                new ValueAnimator.AnimatorUpdateListener() {
-                                    @Override
-                                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                        // update rotation and translation for all views
-                                        updateArcViewPositions();
-                                    }
-                                });
-                    }
+                    // animate shifting let and right views
+                    mAnimationHelper.shiftSideViews(
+                        infoViews,
+                        0,
+                        FanLayoutManager.this,
+                        null,
+                        new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                                // update rotation and translation for all views
+                                updateArcViewPositions();
+                            }
+                        });
+                }
 
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        mIsSelectAnimationInProcess = false;
-                    }
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    mIsSelectAnimationInProcess = false;
+                }
 
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
-                        mIsSelectAnimationInProcess = false;
-                    }
-                });
+                @Override
+                public void onAnimationCancel(Animator animator) {
+                    mIsSelectAnimationInProcess = false;
+                }
+            });
     }
 
     /**
@@ -833,25 +834,25 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
 
                 // generate data for animation helper. (calculate final positions for all views)
                 final Collection<ViewAnimationInfo> infoViews =
-                        ViewAnimationInfoGenerator.generate(delta,
-                                false,
-                                FanLayoutManager.this,
-                                position,
-                                false);
+                    ViewAnimationInfoGenerator.generate(delta,
+                        false,
+                        FanLayoutManager.this,
+                        position,
+                        false);
 
                 // animate shifting let and right views
                 mAnimationHelper.shiftSideViews(
-                        infoViews,
-                        0,
-                        FanLayoutManager.this,
-                        null,
-                        new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                // update rotation and translation for all views
-                                updateArcViewPositions();
-                            }
-                        });
+                    infoViews,
+                    0,
+                    FanLayoutManager.this,
+                    null,
+                    new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                            // update rotation and translation for all views
+                            updateArcViewPositions();
+                        }
+                    });
             }
 
             @Override
@@ -922,8 +923,8 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
     public void straightenSelectedItem(final Animator.AnimatorListener listener) {
         // check all animations
         if (mSelectedItemPosition == RecyclerView.NO_POSITION || mIsSelectAnimationInProcess ||
-                mIsDeselectAnimationInProcess || mIsSelectedItemStraightenedInProcess || mIsWaitingToDeselectAnimation ||
-                mIsWaitingToSelectAnimation || mIsViewCollapsing || mIsSelectedItemStraightened) {
+            mIsDeselectAnimationInProcess || mIsSelectedItemStraightenedInProcess || mIsWaitingToDeselectAnimation ||
+            mIsWaitingToSelectAnimation || mIsViewCollapsing || mIsSelectedItemStraightened) {
             // block if any animation in progress
             return;
         }
@@ -992,8 +993,8 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
     public void restoreBaseRotationSelectedItem(final Animator.AnimatorListener listener) {
         // check all animations
         if (mSelectedItemPosition == RecyclerView.NO_POSITION || mIsSelectAnimationInProcess ||
-                mIsDeselectAnimationInProcess || mIsSelectedItemStraightenedInProcess || mIsWaitingToDeselectAnimation ||
-                mIsWaitingToSelectAnimation || mIsViewCollapsing || !mIsSelectedItemStraightened) {
+            mIsDeselectAnimationInProcess || mIsSelectedItemStraightenedInProcess || mIsWaitingToDeselectAnimation ||
+            mIsWaitingToSelectAnimation || mIsViewCollapsing || !mIsSelectedItemStraightened) {
             // block if any animation in progress
             return;
         }
@@ -1068,8 +1069,8 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
     public void collapseViews() {
         // check all animations
         if (mIsSelectAnimationInProcess || mIsWaitingToSelectAnimation ||
-                mIsDeselectAnimationInProcess || mIsWaitingToDeselectAnimation ||
-                mIsSelectedItemStraightenedInProcess || mIsViewCollapsing) {
+            mIsDeselectAnimationInProcess || mIsWaitingToDeselectAnimation ||
+            mIsSelectedItemStraightenedInProcess || mIsViewCollapsing) {
             return;
         }
         // steps:
@@ -1095,31 +1096,31 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
 
         // generate data for collapse animation
         final Collection<ViewAnimationInfo> infoViews =
-                ViewAnimationInfoGenerator.generate(delta,
-                        mIsCollapsed = !mIsCollapsed,
-                        FanLayoutManager.this,
-                        findCurrentCenterViewPos(),
-                        true);
+            ViewAnimationInfoGenerator.generate(delta,
+                mIsCollapsed = !mIsCollapsed,
+                FanLayoutManager.this,
+                findCurrentCenterViewPos(),
+                true);
 
         // collapse views
         mAnimationHelper.shiftSideViews(infoViews,
-                0,
-                FanLayoutManager.this,
-                new SimpleAnimatorListener() {
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        // 3) Unlock screen
-                        mIsViewCollapsing = !mIsViewCollapsing;
-                        // 4) Scroll to center nearest card
-                        scrollToCenter();
-                    }
-                }, new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        // update rotation and translation for all views
-                        updateArcViewPositions();
-                    }
-                });
+            0,
+            FanLayoutManager.this,
+            new SimpleAnimatorListener() {
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    // 3) Unlock screen
+                    mIsViewCollapsing = !mIsViewCollapsing;
+                    // 4) Scroll to center nearest card
+                    scrollToCenter();
+                }
+            }, new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    // update rotation and translation for all views
+                    updateArcViewPositions();
+                }
+            });
     }
 
     /**
@@ -1216,7 +1217,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
     private static class SavedState implements Parcelable {
 
         public static final Parcelable.Creator<FanLayoutManager.SavedState> CREATOR
-                = new Parcelable.Creator<FanLayoutManager.SavedState>() {
+            = new Parcelable.Creator<FanLayoutManager.SavedState>() {
             @Override
             public FanLayoutManager.SavedState createFromParcel(Parcel in) {
                 return new FanLayoutManager.SavedState(in);
@@ -1241,8 +1242,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
             mCenterItemPosition = in.readInt();
             isCollapsed = in.readInt() == 1;
             isSelected = in.readInt() == 1;
-            //noinspection unchecked
-            mRotation = (SparseArray<Float>) in.readSparseArray(SparseArray.class.getClassLoader());
+            mRotation = in.readSparseArray(SparseArray.class.getClassLoader());
         }
 
         public SavedState(FanLayoutManager.SavedState other) {
@@ -1262,8 +1262,7 @@ public class FanLayoutManager extends RecyclerView.LayoutManager {
             dest.writeInt(mCenterItemPosition);
             dest.writeInt(isCollapsed ? 1 : 0);
             dest.writeInt(isSelected ? 1 : 0);
-            //noinspection unchecked
-            dest.writeSparseArray((SparseArray)mRotation);
+            dest.writeSparseArray((SparseArray<?>) mRotation);
         }
     }
 

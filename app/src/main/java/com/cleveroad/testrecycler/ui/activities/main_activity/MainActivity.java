@@ -2,8 +2,9 @@ package com.cleveroad.testrecycler.ui.activities.main_activity;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.cleveroad.testrecycler.R;
 import com.cleveroad.testrecycler.ui.fragments.main_fragment.MainFragment;
@@ -18,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.root, mMainFragment = MainFragment.newInstance())
-                    .commit();
+                .beginTransaction()
+                .add(R.id.root, mMainFragment = MainFragment.newInstance())
+                .commit();
         } else {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.root);
             if (fragment instanceof MainFragment) {
