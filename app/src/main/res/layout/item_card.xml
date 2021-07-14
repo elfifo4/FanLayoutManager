@@ -8,12 +8,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="4dp"
-        android:paddingEnd="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:paddingStart="8dp"
+        android:paddingLeft="8dp"
         android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="4dp"
         tools:background="@color/dim_gray">
 
         <RelativeLayout
@@ -37,7 +37,7 @@
                 style="@style/SportCardStyle.SportSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvSportTitle"
+                android:layout_below="@id/tvSportTitle"
                 android:layout_centerHorizontal="true"
                 android:ellipsize="end"
                 android:lines="1"
@@ -62,9 +62,10 @@
             android:id="@+id/ivSportPreview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
             android:layout_below="@+id/rlTitleContainer"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            tools:src="@drawable/pic_card_3" />
 
         <RelativeLayout
             android:layout_width="match_parent"

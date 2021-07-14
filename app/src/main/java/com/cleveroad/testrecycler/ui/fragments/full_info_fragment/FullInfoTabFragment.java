@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
@@ -65,18 +67,13 @@ public class FullInfoTabFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         toolbar.setTitle(mSportCardModel.getSportTitle());
         toolbar.setNavigationIcon(R.drawable.ic_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
-        toolbar.setBackgroundColor(ContextCompat.getColor(getContext(), mSportCardModel.getBackgroundColorResId()));
+        toolbar.setNavigationOnClickListener(view1 -> requireActivity().onBackPressed());
+        toolbar.setBackgroundColor(ContextCompat.getColor(requireContext(), mSportCardModel.getBackgroundColorResId()));
         ivPhoto.setImageResource(mSportCardModel.getImageResId());
         List<AthleticModel> items = new ArrayList<>();
         for (int i = 10; i > 0; i--) {
@@ -92,7 +89,7 @@ public class FullInfoTabFragment extends Fragment {
         rvAthletics.setAdapter(scoreAdapter);
         rvAthletics.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         rvAthletics.setItemAnimator(new DefaultItemAnimator());
-        rvAthletics.addItemDecoration(new DividerItemDecoration(getContext()));
+        rvAthletics.addItemDecoration(new DividerItemDecoration(requireContext()));
     }
 
     @Override
@@ -105,7 +102,7 @@ public class FullInfoTabFragment extends Fragment {
 
         private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
-        private Drawable mDivider;
+        private final Drawable mDivider;
 
         /**
          * Default divider will be used
@@ -124,7 +121,7 @@ public class FullInfoTabFragment extends Fragment {
         }
 
         @Override
-        public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+        public void onDraw(@NonNull Canvas c, RecyclerView parent, @NonNull RecyclerView.State state) {
             int left = parent.getPaddingLeft();
             int right = parent.getWidth() - parent.getPaddingRight();
 

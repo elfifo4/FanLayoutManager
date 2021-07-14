@@ -11,12 +11,12 @@ public class FanLayoutManagerSettings {
     private static final float DEFAULT_VIEW_WIDTH_DP = 120F;
     private static final float DEFAULT_VIEW_HEIGHT_DP = 160F;
 
-    private float mViewWidthDp;
-    private float mViewHeightDp;
-    private int mViewWidthPx;
-    private int mViewHeightPx;
-    private boolean mIsFanRadiusEnable;
-    private float mAngleItemBounce;
+    private final float mViewWidthDp;
+    private final float mViewHeightDp;
+    private final int mViewWidthPx;
+    private final int mViewHeightPx;
+    private final boolean mIsFanRadiusEnable;
+    private final float mAngleItemBounce;
 
     private FanLayoutManagerSettings(Builder builder) {
         mViewWidthDp = builder.mViewWidthDp;
@@ -61,7 +61,7 @@ public class FanLayoutManagerSettings {
      */
     public static final class Builder {
         private static final float BOUNCE_MAX = 10F;
-        private Context mContext;
+        private final Context mContext;
         private float mViewWidthDp;
         private float mViewHeightDp;
         private boolean mIsFanRadiusEnable;

@@ -4,16 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class SportCardModel implements Parcelable {
-    private String sportTitle;
-    private String sportSubtitle;
-    private String sportRound;
+    private final String sportTitle;
+    private final String sportSubtitle;
+    private final String sportRound;
 
-    private int imageResId;
+    private final int imageResId;
 
-    private String time;
-    private String dayPart;
+    private final String time;
+    private final String dayPart;
 
-    private int backgroundColorResId;
+    private final int backgroundColorResId;
 
     private SportCardModel(Builder builder) {
         sportTitle = builder.sportTitle;
@@ -59,7 +59,7 @@ public class SportCardModel implements Parcelable {
 
     /**
      * constructor for Parcelable implementation
-     * @param parcel
+     * @param parcel _
      */
     private SportCardModel(Parcel parcel) {
         sportTitle = parcel.readString();

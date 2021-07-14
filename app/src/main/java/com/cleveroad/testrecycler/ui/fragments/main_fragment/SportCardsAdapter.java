@@ -1,15 +1,16 @@
 package com.cleveroad.testrecycler.ui.fragments.main_fragment;
 
 import android.content.Context;
-import android.os.Build;
-import androidx.core.content.ContextCompat;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleveroad.testrecycler.R;
 import com.cleveroad.testrecycler.models.SportCardModel;
@@ -20,7 +21,7 @@ import java.util.List;
 
 class SportCardsAdapter extends RecyclerView.Adapter<SportCardsAdapter.SportCardViewHolder> {
     private final List<SportCardModel> mItems = new ArrayList<>();
-    private Context mContext;
+    private final Context mContext;
     private OnItemClickListener mOnItemClickListener;
 
     SportCardsAdapter(Context context) {
@@ -48,6 +49,7 @@ class SportCardsAdapter extends RecyclerView.Adapter<SportCardsAdapter.SportCard
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
     public SportCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
@@ -67,11 +69,11 @@ class SportCardsAdapter extends RecyclerView.Adapter<SportCardsAdapter.SportCard
         ((CardView) holder.itemView).setCardBackgroundColor(ContextCompat.getColor(mContext, item.getBackgroundColorResId()));
 
 
-        holder.ivSportPreview.setTransitionName("shared" + String.valueOf(position));
+        holder.ivSportPreview.setTransitionName("shared" + position);
 
         holder.itemView.setOnClickListener(v -> {
             if (mOnItemClickListener != null) {
-                mOnItemClickListener.onItemClicked(holder.getAdapterPosition(), holder.ivSportPreview);
+                mOnItemClickListener.onItemClicked(holder.getBindingAdapterPosition(), holder.ivSportPreview);
             }
         });
     }

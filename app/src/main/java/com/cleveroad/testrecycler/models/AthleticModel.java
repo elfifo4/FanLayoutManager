@@ -2,9 +2,9 @@ package com.cleveroad.testrecycler.models;
 
 public class AthleticModel {
 
-    private String name;
-    private Country country;
-    private long score;
+    private final String name;
+    private final Country country;
+    private final long score;
 
     public AthleticModel(String name, Country country, long score) {
         this.name = name;
